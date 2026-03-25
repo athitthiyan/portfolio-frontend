@@ -1,0 +1,121 @@
+<!-- HERO SECTION -->
+<section class="hero" id="home">
+  <div class="bg-grid"></div>
+  <div class="glow-orb" style="width:600px;height:600px;background:#2563eb;top:-200px;left:-200px;"></div>
+  <div class="glow-orb" style="width:400px;height:400px;background:#818cf8;bottom:-100px;right:-100px;"></div>
+
+  <div class="container hero-container">
+    <div class="hero-content reveal-left">
+      <div class="hero-badge">
+        <span class="dot"></span> Available for hire
+      </div>
+      <h1 class="hero-title">
+        Hi, I'm <span class="gradient-text">Athitthiyan</span>
+      </h1>
+      <h2 class="hero-typed">
+        {{ typedText() }}<span class="cursor">|</span>
+      </h2>
+      <p class="hero-sub">
+        Angular &amp; Python specialist building scalable booking and payment applications.
+        Turning complex problems into elegant, high-performance solutions.
+      </p>
+      <div class="hero-tags">
+        <span class="tag">Angular</span>
+        <span class="tag">Python</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">AWS</span>
+      </div>
+      <div class="hero-actions">
+        <button class="btn-primary" (click)="scrollTo('projects')">
+          View My Work
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn-outline" (click)="scrollTo('contact')">
+          Hire Me
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-image reveal-right">
+      <div class="avatar-wrapper">
+        <div class="avatar-ring"></div>
+        <div class="avatar-ring ring2"></div>
+        <div class="avatar-circle">
+          <span class="avatar-initials">AA</span>
+        </div>
+        <div class="floating-badge badge1">
+          <span>&#9889;</span> FastAPI
+        </div>
+        <div class="floating-badge badge2">
+          <span>&#65;&#771;</span> Angular
+        </div>
+        <div class="floating-badge badge3">
+          <span>&#128013;</span> Python
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator" (click)="scrollTo('services')">
+    <div class="scroll-dot"></div>
+  </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section id="services">
+  <app-services></app-services>
+</section>
+
+<!-- PROJECTS SECTION -->
+<section id="projects">
+  <app-projects></app-projects>
+</section>
+
+<!-- ABOUT & STATS SECTION -->
+<section class="section about-section" id="about">
+  <div class="bg-grid"></div>
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-badge">About Me</span>
+      <h2 class="section-title">Passion Meets <span class="gradient-text">Performance</span></h2>
+      <p class="section-subtitle">Building high-impact applications with a focus on scalability and user experience</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text reveal-left">
+        <h3>Full Stack Developer based in <span class="gradient-text">Pondicherry, India</span></h3>
+        <p>With 4+ years of experience building high-traffic booking and payment solutions, I specialize in creating seamless end-to-end applications using Angular and Python.</p>
+        <p>I've architected systems handling 10,000+ monthly transactions with zero downtime, integrated complex payment gateways, and delivered admin dashboards that drive real business insights.</p>
+        <div class="about-skills">
+          @for (skill of skillBars; track skill.name) {
+            <div class="skill-bar">
+              <div class="skill-info">
+                <span>{{ skill.name }}</span>
+                <span>{{ skill.pct }}%</span>
+              </div>
+              <div class="skill-track">
+                <div class="skill-fill" [style.width.%]="skill.pct"></div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="stats-grid reveal-right">
+        @for (stat of stats; track stat.label; let i = $index) {
+          <div class="stat-card">
+            <div class="stat-icon">{{ stat.icon }}</div>
+            <div class="stat-value">{{ animatedStats()[i] | number }}{{ stat.suffix }}</div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact">
+  <app-contact></app-contact>
+</section>
