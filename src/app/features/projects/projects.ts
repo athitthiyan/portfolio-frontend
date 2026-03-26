@@ -1,7 +1,5 @@
-import { Component, ChangeDetectionStrategy, inject, PLATFORM_ID, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, PLATFORM_ID, signal, OnInit } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { catchError, NEVER, of, tap } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { ApiService } from '../../core/services/api';
 import { Project } from '../../models/project.model';
 
@@ -45,28 +43,27 @@ const FALLBACK_PROJECTS: Project[] = [
   styleUrl: './projects.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Projects {
+export class Projects implements OnInit {
   private apiService = inject(ApiService);
   private platformId = inject(PLATFORM_ID);
 
-  // loading starts true always — server renders spinner, avoids hydration mismatch
+  projects = signal<Project[]>([]);
   loading = signal(true);
-  hasError = signal(false);
 
-  // Server: NEVER emits → keeps loading=true → spinner in SSR HTML
-  // Browser: real HTTP call → loading=false when response arrives
-  private projects$ = isPlatformBrowser(this.platformId)
-    ? this.apiService.getProjects().pipe(
-        tap(() => this.loading.set(false)),
-        catchError(() => {
-          this.hasError.set(true);
-          this.loading.set(false);
-          return of(FALLBACK_PROJECTS);
-        })
-      )
-    : NEVER;
+  ngOnInit() {
+    if (!isPlatformBrowser(this.platformId)) return;
 
-  projects = toSignal(this.projects$, { initialValue: [] as Project[] });
+    this.apiService.getProjects().subscribe({
+      next: (data) => {
+        this.projects.set(data.length > 0 ? data : FALLBACK_PROJECTS);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.projects.set(FALLBACK_PROJECTS);
+        this.loading.set(false);
+      }
+    });
+  }
 
   getDisplayDate(project: Project): string {
     if (project.display_date) return project.display_date;
