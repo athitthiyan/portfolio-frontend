@@ -77,6 +77,8 @@
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 32px;
   margin-top: 60px;
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 .project-card {

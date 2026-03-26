@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef, inject, PLATFORM_ID, ChangeDetectionStrategy, signal } from '@angular/core';
-import { isPlatformBrowser, CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Projects } from '../projects/projects';
 import { Services } from '../services/services';
 import { Contact } from '../contact/contact';
@@ -75,6 +75,7 @@ export class Home implements OnInit, AfterViewInit {
   }
 
   initScrollReveal() {
+    // Make elements already in viewport visible immediately
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
