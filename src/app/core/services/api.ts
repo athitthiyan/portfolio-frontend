@@ -6,8 +6,8 @@ import { Project, ContactForm } from '../../models/project.model';
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private http = inject(HttpClient);
-  private baseUrl = 'https://portfolio-api-qgk1.onrender.com';
-  // private baseUrl = 'https://zqqfzgiiqgpfcnqjidta.supabase.co/functions/v1';
+  // private baseUrl = 'https://portfolio-api-qgk1.onrender.com';
+  private baseUrl = 'https://zqqfzgiiqgpfcnqjidta.supabase.co/functions/v1';
 
   getProjects(): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.baseUrl}/projects`);
