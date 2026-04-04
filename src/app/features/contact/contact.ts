@@ -43,7 +43,11 @@ export class Contact {
       },
       error: (error) => {
         this.isSuccess.set(false);
-        this.submitMessage.set(error.error?.message || 'Failed to send message. Please try again.');
+        this.submitMessage.set(
+          error.error?.message ||
+          error.error?.error ||
+          'Failed to send message. Please try again.'
+        );
         this.isSubmitting.set(false);
 
         setTimeout(() => {
